@@ -1,3 +1,10 @@
+"""
+Первый уровень батареи L1 проверяет частотные (равновероятность 0 и 1)
+и серийные (количество переходов) закономерности.
+Это позволяет отсеивать простейшие генераторы и делает батарею эффективной
+на малых объемах данных.
+"""
+
 import math
 from collections import Counter
 
@@ -27,9 +34,11 @@ def l1(data: str):
     t_stat = n - code_len
     p_value = 2 ** (-max(0, t_stat))
 
-    return p_value, t_stat, entropy, p_value <= alpha
+    return p_value, t_stat, entropy, p_value >= alpha
 
 
-print(l1('1010101010'))
-print(l1('1111110000'))
-print(l1('1101001101'))
+test_data1 = "10" * 10  # цикличная строка на 2 символа
+test_data2 = "0" * 10 + "1" * 10  # длинные серии
+
+print(l1(test_data1))
+print(l1(test_data2))
